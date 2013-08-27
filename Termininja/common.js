@@ -175,5 +175,5 @@ var atpl2 = {};
 </pre> */
 
 /* Плъзгащи менюта */
-importStylesheet('Потребител:Termininja/JQuerySlideMenu.css');
-importScript("Потребител:Termininja/JQuerySlideMenu.js");
+importStylesheet('JQuerySlideMenu.css');
+importScript("JQuerySlideMenu.js");
