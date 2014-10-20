@@ -56,10 +56,10 @@ namespace WikiBot
             {
                 this.ExtractTable();
 
-                if ((count * Lines) % Period == 0)
+                if ((((count - Start) * Lines) + Start) % Period == 0)
                 {
-                    int realCount = count * Lines;
-                    this.ExportToExcel(FilePath + "Templates (" + (realCount - Period) + "-" + realCount + ").xlsx");
+                    int realCount = (count - Start) * Lines + Start;
+                    this.ExportToExcel(FilePath + "Templates (" + (realCount - Period + 1) + "-" + realCount + ").xlsx");
                     this.CreateTable();
                 }
 
