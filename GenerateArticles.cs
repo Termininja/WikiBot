@@ -36,7 +36,7 @@ namespace WikiBot
         }
 
         [ClassCleanup]
-        public void ClassCleanup()
+        public static void ClassCleanup()
         {
             ShutDown();
         }
