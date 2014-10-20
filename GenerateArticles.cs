@@ -17,8 +17,8 @@ namespace WikiBot
         private const string SheetName = "Taxobox";
         private const string FilePath = "../../../Templates/";
 
-        private const int Start = 60000;
-        private const int Lines = 2000;
+        private const int Start = 0;
+        private const int Lines = 1000;
         private const int Period = 10000;
 
         public TestContext TestContext { get; set; }
@@ -104,7 +104,10 @@ namespace WikiBot
                 {
                     if (c < rows[r].Cells.Count)
                     {
-                        dataRow[ReadCell(cells, c)] = rows[r][c].InnerText;
+                        if (dataRow[ReadCell(cells, c)].ToString() == string.Empty)
+                        {
+                            dataRow[ReadCell(cells, c)] = rows[r][c].InnerText;
+                        }
                     }
                 }
 
