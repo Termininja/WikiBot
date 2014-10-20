@@ -13,14 +13,18 @@ namespace WikiBot
     [TestClass]
     public class GenerateArticles : BaseTest
     {
-        private const string Url = "https://tools.wmflabs.org/templatetiger/tt-table4.php?template=taxobox&lang=enwiki";
+        private const string Url = "https://tools.wmflabs.org/templatetiger/tt-table4.php?lang=enwiki&template=taxobox";
         private const string SheetName = "Taxobox";
         private const string FilePath = "../../../Templates/";
-        private const int Lines = 10;
+
+        private const int Start = 0;
+        private const int End = int.MaxValue;
+        private const int Lines = 100;
         private const int Period = 10000;
         private const int SleepTime = 10000;
 
         public TestContext TestContext { get; set; }
+        public DataTable DataTable { get; set; }
 
         [TestInitialize]
         public void TestInitialize()
@@ -45,22 +49,18 @@ namespace WikiBot
         public void ExportEnTaxoboxTemplateToExcel()
         {
             Manager.LaunchNewBrowser(BrowserType.InternetExplorer);
-            ActiveBrowser.NavigateTo(Url + "&limit=" + Lines);
+            ActiveBrowser.NavigateTo(Url + "&offset=" + Start + "&limit=" + Lines);
+            this.CreateTable();
 
-            DataTable dataTable = new DataTable();
-            dataTable.Clear();
-
-            for (int count = 1; count < int.MaxValue; count++)
+            for (int count = Start + 1; count < End; count++)
             {
-                this.ExtractTable(dataTable);
+                this.ExtractTable();
 
                 if ((count * Lines) % Period == 0)
                 {
                     int realCount = count * Lines;
-                    this.ExportToExcel(dataTable, FilePath + "Templates (" + (realCount - Period) + "-" + realCount + ").xlsx");
-                    dataTable.Clear();
-
-                    Thread.Sleep(SleepTime);
+                    this.ExportToExcel(FilePath + "Templates (" + (realCount - Period) + "-" + realCount + ").xlsx");
+                    this.CreateTable();
                 }
 
                 // Go to the next page
@@ -69,41 +69,49 @@ namespace WikiBot
                 else break;
             }
 
-            this.ExportToExcel(dataTable, FilePath + "Templates.xlsx");
+            this.ExportToExcel(FilePath + "Templates.xlsx");
+        }
+
+        // Create new empty data table
+        private void CreateTable()
+        {
+            this.DataTable = new DataTable();
+            this.DataTable.Clear();
+            Thread.Sleep(SleepTime);
         }
 
         // Take all table's data from the current web page
-        private void ExtractTable(DataTable dataTable)
+        private void ExtractTable()
         {
             HtmlTable table = Find.ByXPath<HtmlTable>("//html/body/table");
             var cells = table.Rows[0].Cells;
             for (int c = 0; c < cells.Count; c++)
             {
                 var currentColumnName = cells[c].InnerText == string.Empty ? "link" : cells[c].InnerText;
-                if (!dataTable.Columns.Contains(currentColumnName))
+                if (!this.DataTable.Columns.Contains(currentColumnName))
                 {
-                    dataTable.Columns.Add(currentColumnName);
+                    this.DataTable.Columns.Add(currentColumnName);
                 }
             }
 
             var rows = table.Rows;
             for (int r = 1; r < rows.Count; r++)
             {
-                DataRow dataRow = dataTable.NewRow();
+                DataRow dataRow = this.DataTable.NewRow();
                 for (int c = 0; c < cells.Count; c++)
                 {
                     dataRow[cells[c].InnerText == string.Empty ? "link" : cells[c].InnerText] = rows[r][c].InnerText;
                 }
 
-                dataTable.Rows.Add(dataRow);
+                this.DataTable.Rows.Add(dataRow);
             }
         }
 
         // Export all data to an Excel file
-        private void ExportToExcel(DataTable dataTable, string filePath)
+        private void ExportToExcel(string filePath)
         {
             XLWorkbook workbook = new XLWorkbook();
-            workbook.Worksheets.Add(dataTable, SheetName);
+            workbook.Worksheets.Add(this.DataTable, SheetName);
             workbook.SaveAs(filePath);
         }
     }
