@@ -13,12 +13,12 @@ namespace WikiBot
     [TestClass]
     public class GenerateArticles : BaseTest
     {
-        private const string Url = "https://tools.wmflabs.org/templatetiger/tt-table4.php?lang=enwiki&template=taxobox";
-        private const string SheetName = "Taxobox";
+        private const string Url = "https://tools.wmflabs.org/templatetiger/tt-table4.php?";
         private const string FilePath = "../../../Templates/";
+        private const string Template = "Taxobox";
 
         private const int Start = 0;
-        private const int Lines = 1000;
+        private const int Lines = 2000;
         private const int Period = 10000;
 
         public TestContext TestContext { get; set; }
@@ -44,10 +44,22 @@ namespace WikiBot
         }
 
         [TestMethod]
-        public void ExportEnTaxoboxTemplateToExcel()
+        public void ExportEnWiki()
+        {
+            this.ExportEnTaxoboxTemplateToExcel("En");
+        }
+
+        [TestMethod]
+        public void ExportSvWiki()
+        {
+            this.ExportEnTaxoboxTemplateToExcel("Sv");
+        }
+
+        // Export some wiki database to an Excell file
+        public void ExportEnTaxoboxTemplateToExcel(string lang)
         {
             Manager.LaunchNewBrowser(BrowserType.InternetExplorer);
-            ActiveBrowser.NavigateTo(Url + "&offset=" + Start + "&limit=" + Lines);
+            ActiveBrowser.NavigateTo(Url + "lang=" + lang.ToLower() + "wiki&template=" + Template + "&offset=" + Start + "&limit=" + Lines);
             this.CreateTable();
 
             try
@@ -59,7 +71,7 @@ namespace WikiBot
                     if ((((count - Start) * Lines) + Start) % Period == 0)
                     {
                         int realCount = (count - Start) * Lines + Start;
-                        this.ExportToExcel(FilePath + "Templates (" + (realCount - Period + 1) + "-" + realCount + ").xlsx");
+                        this.ExportToExcel(FilePath + lang + "/Templates (" + (realCount - Period + 1) + "-" + realCount + ").xlsx");
                         this.CreateTable();
                     }
 
@@ -71,7 +83,7 @@ namespace WikiBot
             }
             finally
             {
-                this.ExportToExcel(FilePath + "Templates.xlsx");
+                this.ExportToExcel(FilePath + lang + "/Crash.xlsx");
             }
         }
 
@@ -139,7 +151,7 @@ namespace WikiBot
         private void ExportToExcel(string filePath)
         {
             XLWorkbook workbook = new XLWorkbook();
-            workbook.Worksheets.Add(this.DataTable, SheetName);
+            workbook.Worksheets.Add(this.DataTable, Template);
             workbook.SaveAs(filePath);
         }
     }
