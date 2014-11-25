@@ -1,4 +1,4 @@
-﻿namespace WikiBot.Models
+﻿namespace Wiki.Core.Models
 {
     using System.Collections.Generic;
     using System.Text;

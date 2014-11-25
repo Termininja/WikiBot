@@ -1,4 +1,4 @@
-﻿namespace WikiBot.Models.TaxoBox
+﻿namespace Wiki.Core.Models.TaxoBox
 {
     using System.Collections.Generic;
     using System.Text;

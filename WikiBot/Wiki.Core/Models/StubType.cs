@@ -1,4 +1,4 @@
-﻿namespace WikiBot.Models
+﻿namespace Wiki.Core.Models
 {
     public enum StubType
     {

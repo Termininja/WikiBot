@@ -1,4 +1,4 @@
-﻿namespace WikiBot.Models.TaxoBox
+﻿namespace Wiki.Core.Models.TaxoBox
 {
     public enum BioType
     {
