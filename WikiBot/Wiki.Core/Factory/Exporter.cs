@@ -1,4 +1,4 @@
-﻿namespace Wiki.Core
+﻿namespace Wiki.Core.Factory
 {
     using System;
     using System.Collections.Generic;
@@ -8,78 +8,91 @@
     using ArtOfTest.WebAii.Core;
     using ClosedXML.Excel;
 
-    public class Exporter
+    public static class Exporter
     {
         private const string DatabaseUrl = "https://tools.wmflabs.org/templatetiger/tt-table4.php?";
-        private const string TemplatesPath = "../../../Resources/Templates/";
-        private const string Template = "Taxobox";
+        private const string TemplatesPath = "../../../Wiki.Core/Resources/Templates/";
 
-        public DataTable DataTable { get; set; }
+        private static DataTable dataTable;
 
         // Export some wiki database to an Excell file
-        public void TaxoboxToExcel(string lang, int start, int linesPerPage, int savePeriod)
+        public static void TaxoboxToExcel(string lang, int start, int linesPerPage, int savePeriod)
         {
             Manager.Current.LaunchNewBrowser(BrowserType.InternetExplorer);
-            this.NavigateToNextPage(lang, start, linesPerPage);
-            this.CreateTable();
+            NavigateTo(lang, start, linesPerPage);
+            CreateTable();
 
             try
             {
-                for (int count = start + 1; count < int.MaxValue; count++)
+                for (int page = 1; page < int.MaxValue; page++)
                 {
-                    this.ExtractTable();
+                    ExtractTable();
 
-                    if ((((count - start) * linesPerPage) + start) % savePeriod == 0)
+                    var realCount = page * linesPerPage + start;
+                    if (realCount % savePeriod == 0)
                     {
-                        int realCount = (count - start) * linesPerPage + start;
-                        this.ExportToExcel(TemplatesPath + lang + "/Templates (" + (realCount - savePeriod + 1) + "-" + realCount + ").xlsx");
-                        this.CreateTable();
+                        ExportToExcel(TemplatesPath + lang + "/Templates (" + (realCount - savePeriod + 1) + "-" + realCount + ").xlsx");
+                        CreateTable();
                     }
 
-                    NavigateToNextPage(lang, start + (count - start) * linesPerPage, linesPerPage);
+                    NavigateTo(lang, realCount, linesPerPage);
                 }
             }
             catch (Exception ex)
             {
-                DataRow dataRow = this.DataTable.NewRow();
-                dataRow[0] = ex;
-                this.DataTable.Rows.Add(dataRow);
+                DataRow dataRow = dataTable.NewRow();
+                dataRow[0] = "Error: " + ex.Message;
+                dataTable.Rows.Add(dataRow);
 
-                this.ExportToExcel(TemplatesPath + lang + "/Crash.xlsx");
+                ExportToExcel(TemplatesPath + lang + "/Crash.xlsx");
             }
         }
 
-        // Navigate to the next Database page
-        private void NavigateToNextPage(string lang, int pageID, int linesPerPage)
+        // Navigate to some Database page
+        private static void NavigateTo(string lang, int pageID, int linesPerPage)
         {
-            Manager.Current.ActiveBrowser.NavigateTo(DatabaseUrl + "lang=" + lang.ToLower() + "wiki&template=" + Template + "&offset=" + pageID + "&limit=" + linesPerPage);
+            while (true)
+            {
+                try
+                {
+                    Manager.Current.ActiveBrowser.NavigateTo(DatabaseUrl +
+                        "lang=" + lang.ToLower() +
+                        "wiki&template=taxobox&offset=" + pageID +
+                        "&limit=" + linesPerPage);
+                    break;
+                }
+                catch (TimeoutException)
+                {
+                    continue;
+                }
+            }
         }
 
         // Create new empty data table
-        private void CreateTable()
+        private static void CreateTable()
         {
-            this.DataTable = new DataTable();
-            this.DataTable.Clear();
+            dataTable = new DataTable();
+            dataTable.Clear();
         }
 
         // Take all table's data from the current web page
-        private void ExtractTable()
+        private static void ExtractTable()
         {
             HtmlTable table = Manager.Current.ActiveBrowser.Find.ByXPath<HtmlTable>("//html/body/table");
             var cells = table.Rows[0].Cells;
             for (int c = 0; c < cells.Count; c++)
             {
                 var currentColumnName = ReadCell(cells, c);
-                if (!this.DataTable.Columns.Contains(currentColumnName))
+                if (!dataTable.Columns.Contains(currentColumnName))
                 {
-                    this.DataTable.Columns.Add(currentColumnName);
+                    dataTable.Columns.Add(currentColumnName);
                 }
             }
 
             var rows = table.Rows;
             for (int r = 1; r < rows.Count; r++)
             {
-                DataRow dataRow = this.DataTable.NewRow();
+                DataRow dataRow = dataTable.NewRow();
                 for (int c = 0; c < cells.Count; c++)
                 {
                     if (c < rows[r].Cells.Count)
@@ -91,7 +104,7 @@
                     }
                 }
 
-                this.DataTable.Rows.Add(dataRow);
+                dataTable.Rows.Add(dataRow);
             }
         }
 
@@ -116,10 +129,10 @@
         }
 
         // Export all data to an Excel file
-        private void ExportToExcel(string filePath)
+        private static void ExportToExcel(string filePath)
         {
             XLWorkbook workbook = new XLWorkbook();
-            workbook.Worksheets.Add(this.DataTable, Template);
+            workbook.Worksheets.Add(dataTable, "Taxobox");
             workbook.SaveAs(filePath);
         }
     }

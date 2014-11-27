@@ -42,10 +42,10 @@
 
             taxobox.AppendLine("{{Taxobox");
             if (this.Name != null) taxobox.AppendLine("| name = " + this.Name);
-            if (this.Image != null) taxobox.AppendLine(this.Image.ToString());
-            if (this.Statute != null) taxobox.AppendLine(this.Statute.ToString());
-            if (this.FossilRange != null) taxobox.AppendLine(this.FossilRange.ToString());
-            if (this.Taxonomy != null) taxobox.AppendLine(this.Taxonomy.ToString());
+            if (this.Image != null) taxobox.Append(this.Image.ToString());
+            if (this.Statute != null) taxobox.Append(this.Statute.ToString());
+            if (this.FossilRange != null) taxobox.Append(this.FossilRange.ToString());
+            if (this.Taxonomy != null) taxobox.Append(this.Taxonomy.ToString());
             if (this.Hybrid != null) taxobox.AppendLine("| hybrid = " + this.Hybrid);
             if (this.Authorities.Count > 0)
             {
@@ -54,9 +54,9 @@
                     taxobox.AppendLine(authority.ToString());
                 }
             }
-            if (this.Map != null) taxobox.AppendLine(this.Map.ToString());
+            if (this.Map != null) taxobox.Append(this.Map.ToString());
             if (this.Subdivision != null) taxobox.AppendLine("| subdivision = " + this.Subdivision);
-            if (this.Diversity != null) taxobox.AppendLine(this.Diversity.ToString());
+            if (this.Diversity != null) taxobox.Append(this.Diversity.ToString());
             if (this.Synonyms != null) taxobox.AppendLine("| synonyms = " + this.Synonyms);
             if (this.SynonymsRef != null) taxobox.AppendLine("| synonyms_ref = " + this.SynonymsRef);
             if (this.Includes != null) taxobox.AppendLine("| includes = " + this.Includes);

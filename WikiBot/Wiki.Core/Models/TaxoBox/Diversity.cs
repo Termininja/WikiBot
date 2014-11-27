@@ -4,21 +4,22 @@
 
     public class Diversity
     {
-        public string DiversityName { get; set; }
+        private string diversityName;
 
-        public string DiversityLink { get; set; }
+        private string diversityLink;
 
         public Diversity(string name, string link)
         {
-            this.DiversityName = name;
-            this.DiversityLink = link;
+            this.diversityName = name;
+            this.diversityLink = link;
         }
 
         public override string ToString()
         {
             StringBuilder diversity = new StringBuilder();
 
-            //TODO
+            if (this.diversityName != null) diversity.AppendLine("| diversity = " + this.diversityName);
+            if (this.diversityLink != null) diversity.AppendLine("| diversity_link = " + this.diversityLink);
 
             return diversity.ToString();
         }

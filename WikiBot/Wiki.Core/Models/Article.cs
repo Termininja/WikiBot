@@ -4,13 +4,15 @@
     using System.Text;
 
     using TaxoBox;
+    using Wiki.Core.Data;
 
     public class Article
     {
         private List<string> categories;
-        private StubType type;
 
-        public Article(string articleName, Taxobox taxobox, StubType stubType)
+        private Stub type;
+
+        public Article(string articleName, Taxobox taxobox, Stub stubType)
         {
             this.Name = articleName;
             this.Taxobox = taxobox;
@@ -19,6 +21,7 @@
         }
 
         public string Name { get; set; }
+
         public Taxobox Taxobox { get; set; }
 
         public void AddCategory(string category)
@@ -54,14 +57,14 @@
             return article.ToString();
         }
 
-        private string GetStub(StubType stubType)
+        private string GetStub(Stub stubType)
         {
             switch (stubType)
             {
-                case StubType.Animal: return "животно";
-                case StubType.Fungi: return "гъба";
-                case StubType.Plant: return "растение";
-                case StubType.Biology: return "биология";
+                case Stub.Animal: return "животно";
+                case Stub.Fungi: return "гъба";
+                case Stub.Plant: return "растение";
+                case Stub.Biology: return "биология";
                 default: return null;
             }
         }

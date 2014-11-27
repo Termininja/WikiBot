@@ -1,133 +1,74 @@
 ﻿namespace Wiki.Core.Models.TaxoBox
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Text;
 
     public class Taxonomy
     {
-        public string VirusGroup { get; set; }
+        private List<Taxon> taxons;
 
-        public Taxon Superdomain { get; set; }
-        public Taxon Domain { get; set; }
-
-        public Taxon UnrankedRegnum { get; set; }
-        public Taxon Superregnum { get; set; }
-        public Taxon Regnum { get; set; }
-        public Taxon Subregnum { get; set; }
-
-        public Taxon UnrankedPhylum { get; set; }
-        public Taxon Superphylum { get; set; }
-        public Taxon Phylum { get; set; }
-        public Taxon Subphylum { get; set; }
-        public Taxon Infraphylum { get; set; }
-        public Taxon Microphylum { get; set; }
-        public Taxon Nanophylum { get; set; }
-
-        public Taxon UnrankedSuperdivisio { get; set; }
-        public Taxon Superdivisio { get; set; }
-        public Taxon Divisio { get; set; }
-        public Taxon Subdivisio { get; set; }
-
-        public Taxon UnrankedClassis { get; set; }
-        public Taxon Superclassis { get; set; }
-        public Taxon Classis { get; set; }
-        public Taxon Subclassis { get; set; }
-        public Taxon Infraclassis { get; set; }
-
-        public Taxon UnrankedOrdo { get; set; }
-        public Taxon Magnordo { get; set; }
-        public Taxon Superordo { get; set; }
-        public Taxon Ordo { get; set; }
-        public Taxon Subordo { get; set; }
-        public Taxon Infraordo { get; set; }
-        public Taxon Parvordo { get; set; }
-
-        public Taxon UnrankedFamilia { get; set; }
-        public Taxon Superfamilia { get; set; }
-        public Taxon Familia { get; set; }
-        public Taxon Subfamilia { get; set; }
-
-        public Taxon Supertribus { get; set; }
-        public Taxon Tribus { get; set; }
-        public Taxon Subtribus { get; set; }
-
-        public Taxon Genus { get; set; }
-        public Taxon Subgenus { get; set; }
-
-        public Taxon Sectio { get; set; }
-        public Taxon Series { get; set; }
-
-        public Taxon Species { get; set; }
-        public Taxon Subspecies { get; set; }
-
-        public Taxon Variety { get; set; }
-
-        private string GetRank()
+        public Taxonomy()
         {
-            if (this.Variety != null) return "Variety";
-            if (this.Subspecies != null) return "подвид";
-            if (this.Species != null) return "вид";
-            if (this.Series != null) return "Series";
-            if (this.Sectio != null) return "Sectio";
-            if (this.Subgenus != null) return "Subgenus";
-            if (this.Genus != null) return "Genus";
-            if (this.Subtribus != null) return "Subtribus";
-            if (this.Tribus != null) return "Tribus";
-            if (this.Supertribus != null) return "Supertribus";
-            if (this.Subfamilia != null) return "Subfamilia";
-            if (this.Familia != null) return "Familia";
-            if (this.Superfamilia != null) return "Superfamilia";
-            if (this.UnrankedFamilia != null) return "UnrankedFamilia";
-            if (this.Parvordo != null) return "Parvordo";
-            if (this.Infraordo != null) return "Infraordo";
-            if (this.Subordo != null) return "Subordo";
-            if (this.Ordo != null) return "Ordo";
-            if (this.Superordo != null) return "Superordo";
-            if (this.Magnordo != null) return "Magnordo";
-            if (this.UnrankedOrdo != null) return "UnrankedOrdo";
-            if (this.Infraclassis != null) return "Infraclassis";
-            if (this.Subclassis != null) return "Subclassis";
-            if (this.Classis != null) return "Classis";
-            if (this.Superclassis != null) return "Superclassis";
-            if (this.UnrankedClassis != null) return "UnrankedClassis";
-            if (this.Subdivisio != null) return "Subdivisio";
-            if (this.Divisio != null) return "Divisio";
-            if (this.Superdivisio != null) return "Superdivisio";
-            if (this.UnrankedSuperdivisio != null) return "UnrankedSuperdivisio";
-            if (this.Nanophylum != null) return "Nanophylum";
-            if (this.Microphylum != null) return "Microphylum";
-            if (this.Infraphylum != null) return "Infraphylum";
-            if (this.Subphylum != null) return "Subphylum";
-            if (this.Phylum != null) return "Phylum";
-            if (this.Superphylum != null) return "Superphylum";
-            if (this.UnrankedPhylum != null) return "UnrankedPhylum";
-            if (this.Subregnum != null) return "Subregnum";
-            if (this.Regnum != null) return "Regnum";
-            if (this.Superregnum != null) return "Superregnum";
-            if (this.UnrankedRegnum != null) return "UnrankedRegnum";
-            if (this.Domain != null) return "Domain";
-            if (this.Superdomain != null) return "Superdomain";
-            if (this.VirusGroup != null) return "VirusGroup";
+            this.Ranks = new string[] { 
+                "virus_group", "superdomain", "domain", "superregnum", "regnum", "unranked_regnum", "subregnum", 
+                "superdivisio", "unranked_superdivisio", "superphylum", "divisio", "unranked_divisio", "phylum", 
+                "unranked_phylum", "subdivisio", "subphylum", "infraphylum", "microphylum", "nanophylum",                 
+                "superclassis", "classis", "unranked_classis", "subclassis", "infraclassis", "magnordo",
+                "superordo", "ordo", "unranked_ordo", "subordo", "infraordo", "parvordo", "superfamilia", 
+                "familia", "unranked_familia", "subfamilia", "supertribus", "tribus", "subtribus", "alliance", 
+                "genus", "subgenus", "sectio", "series", "species", "subspecies", "variety" };
 
-            throw new NotImplementedException("Some rank is not implemented!");
+            this.Ranks_bg = new string[] { 
+                "група", "надимперия", "империя", "надцарство", "царство", "(царство без ранг)", "подцарство", 
+                "надотдел", "(надотдел без ранг)", "надтип", "отдел", "(отдел без ранг)", "тип",
+                "(тип без ранг)", "подотдел", "подтип", "инфратип", "микротип", "нанотип", 
+                "надклас", "клас", "(клас без ранг)", "подклас", "инфраклас", "магнразред", 
+                "надразред", "разред", "(разред без ранг)", "подразред", "инфраразред", "парвразред", "надсемейство", 
+                "семейство", "(семейство без ранг)", "подсемейство", "надтриб", "триб", "подтриб", "алианс", 
+                "род", "подрод", "секция", "серия", "вид", "подвид", "вариетет" };
+
+            this.taxons = new List<Taxon>();
+            for (int i = 0; i < this.Ranks.Length; i++)
+            {
+                this.taxons.Add(new Taxon(this.Ranks[i], this.Ranks_bg[i]));
+            }
         }
 
-        //TODO: Export it in separated class "Content"
+        public string[] Ranks { get; set; }
+
+        public string[] Ranks_bg { get; set; }
+
+        public void AddTaxon(string rank, string value, string value_bg)
+        {
+            var index = this.taxons.IndexOf(this.taxons.FirstOrDefault(x => x.Name == rank));
+            this.taxons[index].Value = value;
+            this.taxons[index].Value_bg = value_bg;
+        }
+
+        public Taxon GetRank()
+        {
+            return this.taxons.FindLast(x => x.Value != null);
+        }
+
         internal string GetText(string articleName)
         {
             StringBuilder text = new StringBuilder();
             string qmarks = "'''";
-            string rank = this.GetRank();//new Rank()
-            Rank upperRank = new Rank();// this.GetUpperRank();
+            string rank = this.GetRank().Name_bg;//new Rank()
+            Taxon upperRank = new Taxon(null, null);// this.GetUpperRank();
             bool plural = true;
 
-            if (rank == "Variety" || rank == "подвид" || rank == "вид" || rank == "Series" ||
-                rank == "Sectio" || rank == "Subgenus" || rank == "Genus") qmarks += "''";
-
-            if (rank == "Variety" || rank == "подвид" || rank == "вид") plural = false;
+            var index = Array.IndexOf(this.Ranks_bg, rank);
+            if (index >= Array.IndexOf(this.Ranks_bg, "род")) qmarks += "''";
+            if (index >= Array.IndexOf(this.Ranks_bg, "вид")) plural = false;
 
             // For Edit: Validation for "rank" and "upperRank"
-            text.AppendLine(qmarks + articleName + qmarks + ((plural) ? " са " : " е ") + rank + "{бозайници, насекоми, гъби, гъба, риба}" + " от " + upperRank.Name_bg + " " + upperRank.Value_bg + " [[" + upperRank.Value + "]]");
+            text.AppendLine(
+                qmarks + articleName + qmarks + ((plural) ? " са " : " е ") + rank +
+                "{бозайници, насекоми, гъби, гъба, риба}" + " от " + upperRank.Name_bg + " " +
+                upperRank.Value_bg + " [[" + upperRank.Value + "]]");
 
             return text.ToString();
         }
@@ -136,7 +77,10 @@
         {
             StringBuilder taxonomy = new StringBuilder();
 
-            //TODO
+            foreach (var taxon in this.taxons)
+            {
+                if (taxon.Value != null) taxonomy.Append(taxon.ToString());
+            }
 
             return taxonomy.ToString();
         }

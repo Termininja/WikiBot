@@ -2,24 +2,15 @@
 {
     using ArtOfTest.WebAii.TestTemplates;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Wiki.Core;
+    using Wiki.Core.Factory;
 
     [TestClass]
     public class WikiTester : BaseTest
     {
-        public TestContext TestContext { get; set; }
-        public Exporter Exporter { get; set; }
-        public Builder Builder { get; set; }
-
-        #region Initialize & Cleanup
-
         [TestInitialize]
         public void TestInitialize()
         {
-            this.Initialize(false, this.TestContext.TestLogsDir, new TestContextWriteLine(this.TestContext.WriteLine));
-            this.SetTestMethod(this, (string)TestContext.Properties["TestName"]);
-            this.Exporter = new Exporter();
-            this.Builder = new Builder();
+            this.Initialize();
         }
 
         [TestCleanup]
@@ -34,24 +25,23 @@
             ShutDown();
         }
 
-        #endregion
-
         [TestMethod]
-        public void ExportEnWiki()
+        public void Step1_ExportWikiDbToExcel()
         {
-            this.Exporter.TaxoboxToExcel("En", 200000, 1000, 10000);
+            Exporter.TaxoboxToExcel("Sv", 310000, 1000, 10000);
         }
 
         [TestMethod]
-        public void ExportSvWiki()
+        public void Step2_UnifyExcelFiles()
         {
-            this.Exporter.TaxoboxToExcel("Sv", 200000, 1000, 10000);
+            Unifier.GetColumnNames("En");
+            Unifier.CreateUnitedTable("En");
         }
 
         [TestMethod]
-        public void GenerateArticles()
+        public void Step3_GenerateArticles()
         {
-            this.Builder.GenerateArticles(base.Log);
+            Builder.GenerateArticles(base.Log);
         }
     }
 }

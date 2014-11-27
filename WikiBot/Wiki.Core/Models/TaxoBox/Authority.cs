@@ -2,17 +2,19 @@
 {
     using System.Text;
 
+    using Wiki.Core.Data;
+
     public class Authority
     {
-        private BioType authorityType;
+        private Rank bioType;
 
         private string authorityName;
 
         private string typeAuthority;
 
-        public Authority(BioType type, string name, string authority)
+        public Authority(Rank bioType, string name, string authority)
         {
-            this.authorityType = type;
+            this.bioType = bioType;
             this.authorityName = name;
             this.typeAuthority = authority;
         }
@@ -21,7 +23,9 @@
         {
             StringBuilder authority = new StringBuilder();
 
-            //TODO
+            var type = this.bioType.ToString().ToLower();
+            if (this.authorityName != null) authority.AppendLine("| " + type + " = " + this.authorityName);
+            if (this.typeAuthority != null) authority.AppendLine("| " + type + "_authority = " + this.typeAuthority);
 
             return authority.ToString();
         }

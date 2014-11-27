@@ -38,6 +38,7 @@
         public override string ToString()
         {
             StringBuilder image = new StringBuilder();
+
             if (this.Link != null) image.AppendLine("| image = " + this.Link);
             if (this.ImageCaption != null) image.AppendLine("| image_caption = " + this.ImageCaption);
             if (this.Link2 != null) image.AppendLine("| image2 = " + this.Link2);
