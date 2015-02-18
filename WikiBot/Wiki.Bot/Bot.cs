@@ -50,10 +50,6 @@
                 //ArticleGenerator.ExcelToWikiArticle(username, password);
             }
 
-            //var searchPage = new WikiSearchPage("хоро");
-            //searchPage.Navigate();
-            //var results = searchPage.GetResults();
-
             //var link = "Шаблон:Потребител 1000";
             //ArticleEditor.ReplaceStringInWhatLinksHereResults(link, "1000", "Потребителска кутия|1000");
 

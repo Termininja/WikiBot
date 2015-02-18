@@ -13,5 +13,8 @@ namespace Wiki.Models.Enums
         //CommonsCategory = 373,
         DateOfBirth = 569,
         DateOfDeath = 570,
+        //EarliestDate = 1319,
+        //LatestDate = 1326,
+        //SourcingCircumstances = 1480,
     }
 }

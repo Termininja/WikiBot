@@ -10,14 +10,14 @@
 
     public class WikiEditPage : WikiPage
     {
-        private const string WikiEditActionString = "&action=edit";
+        private const string WikiActionEditString = "&action=edit";
         private const int RefreshDomTreeInterval = 10;
 
         private HtmlTextArea textarea;
         private HtmlInputText summary;
 
         public WikiEditPage(string pageName)
-            : base(pageName + WikiEditActionString)
+            : base(pageName + WikiActionEditString)
         {
             base.Name = pageName;
         }

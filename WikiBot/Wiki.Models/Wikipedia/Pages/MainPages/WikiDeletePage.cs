@@ -4,10 +4,10 @@
 
     public class WikiDeletePage : WikiPage
     {
-        private const string WikiDeleteActionString = "&action=delete";
+        private const string WikiActionDeleteString = "&action=delete";
 
         public WikiDeletePage(string pageName)
-            : base(pageName + WikiDeleteActionString)
+            : base(pageName + WikiActionDeleteString)
         {
             base.Name = pageName;
         }
