@@ -161,7 +161,7 @@
         /// Prints some log message with different color.
         /// </summary>
         /// <param name="log">The log message.</param>
-        /// <param name="isOk">To mark the log as Good use 'true' or 'false' to mark it as Bad.</param>
+        /// <param name="isOk">To mark the log as Good use 'true' or 'false' to mark it as Bad. By default is null (neutral).</param>
         public static void Log(dynamic log, bool? isOk = null)
         {
             SetColor(isOk == null ? Color.White : ((bool)isOk ? Color.Green : Color.Red));
