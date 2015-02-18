@@ -31,7 +31,7 @@
         public int Sitelinks { get; set; }
 
         /// <summary>
-        /// Adds some bgwiki page to an existing Wikidata item.
+        /// Adds some bgwiki page to an existing (or will create new one) Wikidata item.
         /// </summary>
         /// <param name="wikidataPageName">Some page name already included in the Wikidata item.</param>
         /// <param name="bgwikiPageName">The bgwiki page's name. By default it is the same as wikidataPageName.</param>
