@@ -5,7 +5,6 @@
     using System.Linq;
 
     using MinimalJson;
-    using Wiki.Access;
     using Wiki.Models.Enums;
     using Wiki.Models.Wikidata.Statements;
     using Wiki.Core.Access;

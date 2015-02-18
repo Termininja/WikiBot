@@ -1,4 +1,4 @@
-﻿namespace Wiki.Access
+﻿namespace Wiki.Core.Access
 {
     using System.Collections.Generic;
     using System.IO;
