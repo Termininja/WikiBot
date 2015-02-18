@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Wiki.Core.Access.DbAccess" Collapsed="true">
+    <Position X="20.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAABAABAAAAAAAAAAAAAAACAAAAAAAAI=</HashCode>
+      <FileName>Access\DbAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Access.FileAccess" Collapsed="true">
+    <Position X="15.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAkAAAAAAAAEAAAAAAAAAAAAAACAIAAgAAAAAAAA=</HashCode>
+      <FileName>Access\FileAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Access.WebAccess" Collapsed="true">
+    <Position X="17" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAABAAAAAAAAAiAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Access\WebAccess.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Console" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAFAAAAAAAAAAAAIEAAAAAAAAAAEAACAAAgAAAFgAEI=</HashCode>
+      <FileName>Console.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Logger" Collapsed="true">
+    <Position X="22.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Logger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Wikidata" Collapsed="true">
+    <Position X="18.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABJgAZAAAACQAAAAAEAAAAAAAABAAAAIAAAQAAAAACA=</HashCode>
+      <FileName>Wikidata.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.ArticleChecker" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAgAAAAAAAAAAAAAAAAAAAQAAABAAAAAAACAAAA=</HashCode>
+      <FileName>Factory\ArticleChecker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.AdvisorEditor" Collapsed="true">
+    <Position X="8.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Factory\ArticleEditors\AdvisorEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.ArticlesEditorFromCategory" Collapsed="true">
+    <Position X="10.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\ArticleEditors\ArticlesEditorFromCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.CategoriesEditor" Collapsed="true">
+    <Position X="12.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAACAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\ArticleEditors\CategoriesEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.WhatLinksHereEditor" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAQAAAACAAAABAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\ArticleEditors\WhatLinksHereEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.WhatLinksHereEditor2" Collapsed="true">
+    <Position X="6" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAACAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\ArticleEditors\WhatLinksHereEditor2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.WikiEditor" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAEgAAAAAAUAABACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\ArticleEditors\WikiEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.Builder2" Collapsed="true">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAABAAIAQAAAAAAAQAAAAGgAIEAAAAAAABAAAIQA=</HashCode>
+      <FileName>Factory\ArticleGenerators\Builder2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.DataConverter" Collapsed="true">
+    <Position X="18.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\ArticleGenerators\DataConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.DBExporter" Collapsed="true">
+    <Position X="22.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAgAAAAAAACAAAAAAAACAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\ArticleGenerators\DBExporter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.ICTV" Collapsed="true">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAIAAAAAAAAAAAAAAAAAAAAAAQCAAAAAAAAA=</HashCode>
+      <FileName>Factory\ArticleGenerators\ICTV.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.ITIS" Collapsed="true">
+    <Position X="18.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAgAAAAAAAQEBAAgQAIAgCIAAAAkCAAAgBAEQA=</HashCode>
+      <FileName>Factory\ArticleGenerators\ITIS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.IUCN" Collapsed="true">
+    <Position X="20.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAABIAAAAAAAAAAAAAEAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Factory\ArticleGenerators\IUCN.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.ArticleEditors.AddCategory" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\ArticleEditors\AddCategory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.ArticleEditors.ArticleEditor" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAEAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAACA=</HashCode>
+      <FileName>Factory\ArticleEditors\ArticleEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.ArticleGenerators.ArticleBuilder" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAJAABAAIAQAAAAAAAQAAAEEBAIEAAAAAAAAAAAIQE=</HashCode>
+      <FileName>Factory\ArticleGenerators\ArticleBuilder.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.ArticleGenerators.ArticleGenerator" Collapsed="true">
+    <Position X="22.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Factory\ArticleGenerators\ArticleGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wiki.Core.Factory.ArticleGenerators.TemplatetigerExtractor" Collapsed="true">
+    <Position X="15.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAhAAAAAAAgACAAAAEEAAAAAABAAADAAAAAAE=</HashCode>
+      <FileName>Factory\ArticleGenerators\TemplatetigerExtractor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
