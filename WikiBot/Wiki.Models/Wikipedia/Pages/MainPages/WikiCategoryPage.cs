@@ -6,7 +6,7 @@
 
     public class WikiCategoryPage : WikiArticlePage
     {
-        private const string WikiCategoryString = "Категория";
+        private const string WikiCategoryString = "Категория:";
 
         public WikiCategoryPage(string categoryName)
             : base(WikiCategoryString + categoryName)
