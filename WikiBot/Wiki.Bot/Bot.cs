@@ -156,7 +156,7 @@
                         bad++;
 
                         var log = articleName + (string.IsNullOrEmpty(ex.Message) ? "" : " - Exception: " + ex.Message);
-                        FileAccess.WriteText(new List<string>() { log }, @"..\..\..\Report.log");
+                        FileAccess.WriteText(log, @"..\..\..\Report.log");
                     }
 
                     Console.Log(articleName + " (" + bad + ") " + ex.Message, false);
