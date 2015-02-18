@@ -162,7 +162,7 @@
         /// </summary>
         /// <param name="log">The log message.</param>
         /// <param name="isOk">To mark the log as Good use 'true' or 'false' to mark it as Bad.</param>
-        public static void Log(string log, bool? isOk = null)
+        public static void Log(dynamic log, bool? isOk = null)
         {
             SetColor(isOk == null ? Color.White : ((bool)isOk ? Color.Green : Color.Red));
             WriteLine(log);
