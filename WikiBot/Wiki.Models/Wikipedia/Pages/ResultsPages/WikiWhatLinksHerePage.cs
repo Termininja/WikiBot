@@ -8,10 +8,10 @@
     public class WikiWhatLinksHerePage : WikiResultsPage
     {
         private const string WikiWhatLinksHereString = "Специални:Какво сочи насам/";
-        private const string HideLinksAndRedirsString = "&hidelinks=1&hideredirs=1";
+        private const string FilterString = "&hidetrans={0}&hidelinks={1}&hideredirs={2}";
 
-        public WikiWhatLinksHerePage(string pageName, bool onlyRealPages = false)
-            : base(WikiWhatLinksHereString + pageName + (onlyRealPages ? HideLinksAndRedirsString : null))
+        public WikiWhatLinksHerePage(string pageName, bool hideTrans = false, bool hideLinks = false, bool hideRedirs = false)
+            : base(WikiWhatLinksHereString + pageName + string.Format(FilterString, hideTrans ? 1 : 0, hideLinks ? 1 : 0, hideRedirs ? 1 : 0))
         {
             base.Name = pageName;
         }
@@ -20,7 +20,16 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlUnorderedList>("mw-whatlinkshere-list").ChildNodes.Select(m => m.ChildNodes[0].InnerText);
+                var links = base.manager.ActiveBrowser.Find.ById<HtmlUnorderedList>("mw-whatlinkshere-list");
+
+                if (links != null)
+                {
+                    return links.ChildNodes.Select(m => m.ChildNodes[0].InnerText);
+                }
+                else
+                {
+                    return new List<string>();
+                }
             }
         }
     }

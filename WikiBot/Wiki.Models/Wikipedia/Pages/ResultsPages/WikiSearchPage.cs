@@ -2,15 +2,17 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
 
     using ArtOfTest.WebAii.Controls.HtmlControls;
 
     public class WikiSearchPage : WikiResultsPage
     {
         private const string WikiSearchString = "Специални:Търсене&offset=0&search=";
+        private const string ShowPortalsString = "&ns0=1";
 
-        public WikiSearchPage(string searchWord)
-            : base(WikiSearchString + searchWord)
+        public WikiSearchPage(string searchWord, bool portal = true)
+            : base(WikiSearchString + searchWord + (portal ? null : ShowPortalsString))
         {
             base.Name = searchWord;
         }
@@ -19,7 +21,9 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.AllByAttributes<HtmlDiv>("class=mw-search-result-heading").Select(m => m.ChildNodes[0].InnerText);
+                var divs = base.manager.ActiveBrowser.Find.AllByAttributes<HtmlDiv>("class=mw-search-result-heading");
+
+                return divs.Select(m => HttpUtility.HtmlDecode((m.Find.AllByTagName<HtmlAnchor>("a"))[0].Title));
             }
         }
     }

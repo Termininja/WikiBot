@@ -69,17 +69,6 @@
         }
 
         /// <summary>
-        /// Gets the differences page button.
-        /// </summary>
-        public HtmlInputSubmit Differences
-        {
-            get
-            {
-                return base.manager.ActiveBrowser.Find.ById<HtmlInputSubmit>("wpDiff");
-            }
-        }
-
-        /// <summary>
         /// Gets the page edit textarea.
         /// </summary>
         public string Textarea
@@ -123,7 +112,7 @@
         #endregion
 
         /// <summary>
-        /// Save the current page edits.
+        /// Save the current page changes.
         /// </summary>
         public void Save()
         {
@@ -142,6 +131,14 @@
         public void Preview()
         {
             base.manager.ActiveBrowser.Find.ById<HtmlInputSubmit>("wpPreview").Click();
+        }
+
+        /// <summary>
+        /// Check the differences.
+        /// </summary>
+        public void Differences()
+        {
+            base.manager.ActiveBrowser.Find.ById<HtmlInputSubmit>("wpDiff").Click();
         }
 
         public void Replace(string oldString, string newString)

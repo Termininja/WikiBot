@@ -12,7 +12,9 @@
     public class Wikidata
     {
         private string itemID;
+        private string label;
         private int revisionID;
+        private int sitelinks;
         private JsonObject claims;
         private WebAccess web;
         private Statement newProperty;
@@ -28,7 +30,22 @@
             }
         }
 
-        public int Sitelinks { get; set; }
+        public string Label
+        {
+            get
+            {
+                return this.label;
+            }
+        }
+
+        public int Sitelinks
+        {
+            get
+            {
+                return this.sitelinks;
+            }
+        }
+
 
         /// <summary>
         /// Adds some bgwiki page to an existing (or will create new one) Wikidata item.
@@ -162,6 +179,8 @@
         /// <returns>Returns the ID of the found Wikidata item.</returns>
         public string GetItemID(string title, List<string> sites = null)
         {
+            this.label = string.Empty;
+            
             if (sites == null)
             {
                 sites = new List<string>();
@@ -182,8 +201,18 @@
                 {
                     this.itemID = data.get("id").asString();
                     this.revisionID = data.get("lastrevid").asInt();
-                    this.Sitelinks = data.get("sitelinks").asObject().size();
+                    this.sitelinks = data.get("sitelinks").asObject().size();
                     this.claims = data.get("claims") != null ? data.get("claims").asObject() : null;
+
+                    var labels = data.get("labels");
+                    if (labels != null)
+                    {
+                        var en = labels.asObject().get("en");
+                        if (en != null)
+                        {
+                            this.label = en.asObject().get("value").asString();
+                        }
+                    }
 
                     return this.itemID;
                 }
