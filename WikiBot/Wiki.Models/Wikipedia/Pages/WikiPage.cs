@@ -2,8 +2,6 @@
 {
     using System.IO;
     using System.Net;
-    using System.Text.RegularExpressions;
-    using System.Web;
 
     using ArtOfTest.WebAii.Controls.HtmlControls;
     using ArtOfTest.WebAii.Core;
@@ -12,6 +10,7 @@
     public abstract class WikiPage
     {
         protected const string MainUrl = "https://bg.wikipedia.org/w/index.php?title=";
+        protected const int RefreshDomTreeInterval = 10;
         protected Manager manager;
 
         public WikiPage(string extraUrl)
@@ -70,7 +69,7 @@
         /// Navigate to some URL. By default navigate to the current URL.
         /// </summary>
         /// <param name="url">The full URL address.</param>
-        public void Navigate(string url = null)
+        public virtual void Navigate(string url = null)
         {
             this.manager.ActiveBrowser.NavigateTo(url ?? this.Url);
         }

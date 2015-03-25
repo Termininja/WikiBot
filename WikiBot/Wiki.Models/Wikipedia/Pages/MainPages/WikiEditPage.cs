@@ -1,6 +1,7 @@
 ﻿namespace Wiki.Models.Wikipedia.Pages.MainPages
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
     using System.Threading;
@@ -11,10 +12,12 @@
     public class WikiEditPage : WikiPage
     {
         private const string WikiActionEditString = "&action=edit";
-        private const int RefreshDomTreeInterval = 10;
-
         private HtmlTextArea textarea;
         private HtmlInputText summary;
+
+        public List<string> SuggestionWords = new List<string>() { 
+            "интервали", "дв. интервал", "нов ред", "год.→г.", "число+г.", "А|АБ", "А|А", "заглавие", //"запетая"
+        };      //TODO: Not work for "нов ред" or ...
 
         public WikiEditPage(string pageName)
             : base(pageName + WikiActionEditString)
@@ -25,46 +28,13 @@
         #region Web page elements
 
         /// <summary>
-        /// Gets the all suggestions from the Advisor Gadget.
+        /// Gets the all suggestions by the Advisor Gadget.
         /// </summary>
-        public ReadOnlyCollection<Element> AllAdvisorSuggestions
+        private ReadOnlyCollection<Element> AdvisorSuggestions
         {
             get
             {
                 return base.manager.ActiveBrowser.Find.ById<HtmlDiv>("mw-content-text").ChildNodes[2].ChildNodes;
-            }
-        }
-
-        /// <summary>
-        /// Gets the last suggestion from the Advisor Gadget.
-        /// </summary>
-        public HtmlAnchor LastAdvisorSuggestion
-        {
-            get
-            {
-                return this.AllAdvisorSuggestions.Last().As<HtmlAnchor>();
-            }
-        }
-
-        /// <summary>
-        /// Gets the minor edits check box page button.
-        /// </summary>
-        public HtmlInputCheckBox MinorEdit
-        {
-            get
-            {
-                return base.manager.ActiveBrowser.Find.ById<HtmlInputCheckBox>("wpMinoredit");
-            }
-        }
-
-        /// <summary>
-        /// Gets the watch it check box page button.
-        /// </summary>
-        public HtmlInputCheckBox WatchIt
-        {
-            get
-            {
-                return base.manager.ActiveBrowser.Find.ById<HtmlInputCheckBox>("wpWatchthis");
             }
         }
 
@@ -75,12 +45,6 @@
         {
             get
             {
-                while (base.manager.ActiveBrowser.Find.ById<HtmlTextArea>("wpTextbox1") == null)
-                {
-                    Thread.Sleep(RefreshDomTreeInterval);
-                    base.RefreshDom();
-                }
-
                 this.textarea = base.manager.ActiveBrowser.Find.ById<HtmlTextArea>("wpTextbox1");
 
                 return this.textarea.Text;
@@ -110,6 +74,17 @@
         }
 
         #endregion
+
+        public override void Navigate(string url = null)
+        {
+            base.Navigate(url);
+
+            while (base.manager.ActiveBrowser.Find.ById<HtmlTextArea>("wpTextbox1") == null)
+            {
+                Thread.Sleep(RefreshDomTreeInterval);
+                base.RefreshDom();
+            }
+        }
 
         /// <summary>
         /// Save the current page changes.
@@ -141,21 +116,57 @@
             base.manager.ActiveBrowser.Find.ById<HtmlInputSubmit>("wpDiff").Click();
         }
 
-        public void Replace(string oldString, string newString)
+        /// <summary>
+        /// Watch the current page.
+        /// </summary>
+        /// <param name="isWatched">By default is 'true'.</param>
+        public void WatchIt(bool isWatched = true)
         {
-            this.Textarea = this.Textarea.Replace(oldString, newString);
-        }
-
-        public HtmlAnchor GetAdvisorSuggestion(int suggestion)
-        {
-            return (this.AllAdvisorSuggestions[suggestion + 1].ChildNodes[0]).As<HtmlAnchor>();
+            var checkBox = base.manager.ActiveBrowser.Find.ById<HtmlInputCheckBox>("wpWatchthis");
+            if (checkBox != null)
+            {
+                checkBox.Check(isWatched, true);
+            }
         }
 
         /// <summary>
-        /// Adds the Advisor Gadget summary for the suggestions which are done.
+        /// Marks the current edit as minor.
         /// </summary>
-        public void AddAdvisorSummary()
+        /// <param name="isMinor">By default is 'true'.</param>
+        public void MinorEdit(bool isMinor = true)
         {
+            var checkBox = base.manager.ActiveBrowser.Find.ById<HtmlInputCheckBox>("wpMinoredit");
+            if (checkBox != null)
+            {
+                checkBox.Check(isMinor, true);
+            }
+        }
+
+        /// <summary>
+        /// Checks for Advisor Gadget suggestions and adds edit summary.
+        /// </summary>
+        public void AdvisorCheck()
+        {
+            this.RefreshDom();
+            var suggestions = this.AdvisorSuggestions;
+            if (suggestions.Last().InnerText == "...")
+            {
+                suggestions.Last().As<HtmlAnchor>().Click();
+            }
+
+            for (int s = 1; s < suggestions.Count; s += 2)
+            {
+                if (this.SuggestionWords.Contains(suggestions[s].InnerText))
+                {
+                    var addSuggestions = (this.AdvisorSuggestions[s + 1].ChildNodes[0]).As<HtmlAnchor>();
+                    addSuggestions.Click();
+                    this.RefreshDom();
+                    suggestions = this.AdvisorSuggestions;
+                    s = -1;
+                }
+            }
+
+            this.RefreshDom();
             var advisorSummary = base.manager.ActiveBrowser.Find.ByContent<HtmlAnchor>("Добави към резюмето");
             if (advisorSummary != null)
             {
