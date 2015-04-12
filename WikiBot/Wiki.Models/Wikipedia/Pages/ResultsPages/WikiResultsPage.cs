@@ -20,6 +20,7 @@
             var results = this.Results;
             while (true)
             {
+                // "по-стари" for WikiHistoryPage
                 var nextButton = base.manager.ActiveBrowser.Find.ByContent<HtmlAnchor>("следващи " + MaxResultsPerPage);
                 if (nextButton != null) nextButton.Click();
                 else break;

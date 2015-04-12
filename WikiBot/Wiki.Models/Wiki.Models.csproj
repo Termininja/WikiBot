@@ -72,6 +72,7 @@
     <Compile Include="Enums\Lang.cs" />
     <Compile Include="Enums\ReferenceType.cs" />
     <Compile Include="Enums\Stub.cs" />
+    <Compile Include="Wikipedia\Pages\MainPages\WikiMovePage.cs" />
     <Compile Include="Wikipedia\Pages\MainPages\WikiHistoryPage.cs" />
     <Compile Include="Wikipedia\Pages\MainPages\WikiArticlePage.cs" />
     <Compile Include="Wikipedia\Pages\MainPages\WikiCategoryPage.cs" />

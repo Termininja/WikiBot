@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Data\Libs\Excel.dll</HintPath>
     </Reference>
+    <Reference Include="iTextSharp">
+      <HintPath>Libs\iTextSharp.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="MinimalJson, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -73,7 +76,6 @@
     <Compile Include="Factory\ArticleGenerators\ICTV.cs" />
     <Compile Include="Factory\ArticleGenerators\IUCN.cs" />
     <Compile Include="Factory\ArticleGenerators\DataConverter.cs" />
-    <Compile Include="Factory\ArticleEditors\AdvisorEditor.cs" />
     <Compile Include="Factory\ArticleEditors\WhatLinksHereEditor.cs" />
     <Compile Include="Factory\ArticleEditors\WhatLinksHereEditor2.cs" />
     <Compile Include="Factory\ArticleEditors\WikiEditor.cs" />
@@ -90,10 +92,8 @@
     <Content Include="Libs\ClosedXML.dll" />
     <Content Include="Libs\Excel.dll" />
     <Content Include="Libs\ICSharpCode.SharpZipLib.dll" />
+    <Content Include="Libs\iTextSharp.dll" />
     <Content Include="Libs\MinimalJson.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Wiki.Models\Wiki.Models.csproj">
