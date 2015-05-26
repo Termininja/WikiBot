@@ -21,7 +21,7 @@
         {
             get
             {
-                var divs = base.manager.ActiveBrowser.Find.AllByAttributes<HtmlDiv>("class=mw-search-result-heading");
+                var divs = base.browser.Find.AllByAttributes<HtmlDiv>("class=mw-search-result-heading");
 
                 return divs.Select(m => HttpUtility.HtmlDecode((m.Find.AllByTagName<HtmlAnchor>("a"))[0].Title));
             }

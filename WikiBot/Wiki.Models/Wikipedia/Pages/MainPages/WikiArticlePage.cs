@@ -21,7 +21,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ByContent<HtmlAnchor>("Създаване");
+                return base.browser.Find.ByContent<HtmlAnchor>("Създаване");
             }
         }
 
@@ -32,7 +32,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ByAttributes<HtmlTable>("class=infobox");
+                return base.browser.Find.ByAttributes<HtmlTable>("class=infobox");
             }
         }
 
@@ -43,7 +43,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlDiv>("mw-normal-catlinks");
+                return base.browser.Find.ById<HtmlDiv>("mw-normal-catlinks");
             }
         }
 
@@ -54,7 +54,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlDiv>("mw-hidden-catlinks");
+                return base.browser.Find.ById<HtmlDiv>("mw-hidden-catlinks");
             }
         }
 
@@ -65,7 +65,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.AllByAttributes<HtmlListItem>("class=interlanguage-link");
+                return base.browser.Find.AllByAttributes<HtmlListItem>("class=interlanguage-link");
             }
         }
 

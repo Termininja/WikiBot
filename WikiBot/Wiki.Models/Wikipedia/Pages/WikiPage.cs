@@ -1,7 +1,9 @@
 ﻿namespace Wiki.Models.Wikipedia.Pages
 {
     using System.IO;
+    using System.Linq;
     using System.Net;
+    using System.Threading;
 
     using ArtOfTest.WebAii.Controls.HtmlControls;
     using ArtOfTest.WebAii.Core;
@@ -11,12 +13,12 @@
     {
         protected const string MainUrl = "https://bg.wikipedia.org/w/index.php?title=";
         protected const int RefreshDomTreeInterval = 10;
-        protected Manager manager;
+        protected Browser browser;
 
         public WikiPage(string extraUrl)
         {
             this.Url = MainUrl + extraUrl;
-            this.GetManager();
+            this.browser = this.GetBrowser();
         }
 
         public string Url { get; set; }
@@ -46,7 +48,7 @@
         {
             get
             {
-                return this.manager.ActiveBrowser.Find.ById("firstHeading").ChildNodes[0].As<HtmlSpan>();
+                return this.browser.Find.ById("firstHeading").ChildNodes[0].As<HtmlSpan>();
             }
         }
 
@@ -57,7 +59,7 @@
         {
             get
             {
-                return this.manager.ActiveBrowser.Find.ById<HtmlListItem>("ca-history");
+                return this.browser.Find.ById<HtmlListItem>("ca-history");
             }
         }
 
@@ -71,15 +73,17 @@
         /// <param name="url">The full URL address.</param>
         public virtual void Navigate(string url = null)
         {
-            this.manager.ActiveBrowser.NavigateTo(url ?? this.Url);
+            this.browser.NavigateTo(url ?? this.Url);
+            Thread.Sleep(100);
+            this.RefreshDom();
         }
 
         /// <summary>
-        /// Refresh the DOM tree.
+        /// Refresh the DOM tree for specific browser.
         /// </summary>
         public void RefreshDom()
         {
-            this.manager.ActiveBrowser.RefreshDomTree();
+            this.browser.RefreshDomTree();
         }
 
         /// <summary>
@@ -87,7 +91,7 @@
         /// </summary>
         public void OnFocus()
         {
-            this.manager.ActiveBrowser.Window.SetFocus();
+            this.browser.Window.SetFocus();
         }
 
         /// <summary>
@@ -95,33 +99,36 @@
         /// </summary>
         public void Close()
         {
-            this.manager.ActiveBrowser.Close();
+            this.browser.Close();
         }
 
         #endregion
 
         public OnBeforeUnloadDialog DialogMonitorStart(DialogButton button)
         {
-            var dialog = OnBeforeUnloadDialog.CreateOnBeforeUnloadDialog(this.manager.ActiveBrowser, button);
-            this.manager.DialogMonitor.AddDialog(dialog);
+            var dialog = OnBeforeUnloadDialog.CreateOnBeforeUnloadDialog(this.browser, button);
+            Manager.Current.DialogMonitor.AddDialog(dialog);
 
             return dialog;
         }
 
         public void DialogMonitorStop(OnBeforeUnloadDialog dialog)
         {
-            this.manager.DialogMonitor.AddDialog(dialog);
+            Manager.Current.DialogMonitor.AddDialog(dialog);
         }
 
-        private void GetManager()
+        private Browser GetBrowser()
         {
-            this.manager = Manager.Current;
-            if (this.manager == null)
+            var manager = Manager.Current;
+            if (manager == null)
             {
-                this.manager = new Manager(false);
-                this.manager.Start();
-                this.manager.LaunchNewBrowser(BrowserType.FireFox);
+                manager = new Manager(false);
+                manager.Start();
+                manager.LaunchNewBrowser(BrowserType.FireFox);
+                Thread.Sleep(1000);
             }
+
+            return manager.Browsers.Last();
         }
     }
 }

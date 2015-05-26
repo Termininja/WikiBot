@@ -30,7 +30,7 @@
 
         private void GetResults()
         {
-            var unorderedList = base.manager.ActiveBrowser.Find.ById<HtmlUnorderedList>("pagehistory");
+            var unorderedList = base.browser.Find.ById<HtmlUnorderedList>("pagehistory");
             if (unorderedList != null)
             {
                 this.results = unorderedList.ChildNodes.Select(m => m.As<HtmlListItem>());

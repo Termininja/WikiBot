@@ -97,14 +97,16 @@
             System.Console.WriteLine();
         }
 
-        public static void WriteLine(dynamic value)
+        public static void WriteLine(dynamic format, params object[] arg)
         {
-            System.Console.WriteLine(value);
-        }
-
-        public static void WriteLine(string format, params object[] arg)
-        {
-            System.Console.WriteLine(format, arg);
+            if (arg.Length > 0)
+            {
+                System.Console.WriteLine(format.ToString(), arg);
+            }
+            else
+            {
+                System.Console.WriteLine(format);
+            }
         }
 
         public static System.ConsoleKeyInfo ReadKey()

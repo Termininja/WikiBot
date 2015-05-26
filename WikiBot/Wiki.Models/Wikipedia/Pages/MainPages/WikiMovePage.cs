@@ -20,7 +20,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlSelect>("wpNewTitleNs");
+                return base.browser.Find.ById<HtmlSelect>("wpNewTitleNs");
             }
         }
 
@@ -28,7 +28,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlInputText>("wpNewTitleMain");
+                return base.browser.Find.ById<HtmlInputText>("wpNewTitleMain");
             }
         }
 
@@ -36,7 +36,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlInputText>("wpReason");
+                return base.browser.Find.ById<HtmlInputText>("wpReason");
             }
         }
 
@@ -44,7 +44,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlInputCheckBox>("watch");
+                return base.browser.Find.ById<HtmlInputCheckBox>("watch");
             }
         }
 
@@ -52,7 +52,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ByName<HtmlInputSubmit>("wpMove");
+                return base.browser.Find.ByName<HtmlInputSubmit>("wpMove");
             }
         }
 
@@ -62,7 +62,7 @@
         {
             base.Navigate(url);
 
-            while (base.manager.ActiveBrowser.Find.ByName<HtmlInputSubmit>("wpMove") == null)
+            while (base.browser.Find.ByName<HtmlInputSubmit>("wpMove") == null)
             {
                 Thread.Sleep(RefreshDomTreeInterval);
                 base.RefreshDom();

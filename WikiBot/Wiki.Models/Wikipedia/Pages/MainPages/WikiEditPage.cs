@@ -34,7 +34,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlDiv>("mw-content-text").ChildNodes[2].ChildNodes;
+                return base.browser.Find.ById<HtmlDiv>("mw-content-text").ChildNodes[2].ChildNodes;
             }
         }
 
@@ -45,7 +45,7 @@
         {
             get
             {
-                this.textarea = base.manager.ActiveBrowser.Find.ById<HtmlTextArea>("wpTextbox1");
+                this.textarea = base.browser.Find.ById<HtmlTextArea>("wpTextbox1");
 
                 return this.textarea.Text;
             }
@@ -62,7 +62,7 @@
         {
             get
             {
-                this.summary = base.manager.ActiveBrowser.Find.ById<HtmlInputText>("wpSummary");
+                this.summary = base.browser.Find.ById<HtmlInputText>("wpSummary");
 
                 return this.summary.Text;
             }
@@ -79,7 +79,7 @@
         {
             base.Navigate(url);
 
-            while (base.manager.ActiveBrowser.Find.ById<HtmlTextArea>("wpTextbox1") == null)
+            while (base.browser.Find.ById<HtmlTextArea>("wpTextbox1") == null)
             {
                 Thread.Sleep(RefreshDomTreeInterval);
                 base.RefreshDom();
@@ -91,9 +91,9 @@
         /// </summary>
         public void Save()
         {
-            base.manager.ActiveBrowser.Find.ById<HtmlInputSubmit>("wpSave").Click();
+            base.browser.Find.ById<HtmlInputSubmit>("wpSave").Click();
 
-            while (base.manager.ActiveBrowser.Find.ById<HtmlInputSubmit>("wpSave") != null)
+            while (base.browser.Find.ById<HtmlInputSubmit>("wpSave") != null)
             {
                 Thread.Sleep(RefreshDomTreeInterval);
                 base.RefreshDom();
@@ -105,7 +105,7 @@
         /// </summary>
         public void Preview()
         {
-            base.manager.ActiveBrowser.Find.ById<HtmlInputSubmit>("wpPreview").Click();
+            base.browser.Find.ById<HtmlInputSubmit>("wpPreview").Click();
         }
 
         /// <summary>
@@ -113,7 +113,7 @@
         /// </summary>
         public void Differences()
         {
-            base.manager.ActiveBrowser.Find.ById<HtmlInputSubmit>("wpDiff").Click();
+            base.browser.Find.ById<HtmlInputSubmit>("wpDiff").Click();
         }
 
         /// <summary>
@@ -122,7 +122,7 @@
         /// <param name="isWatched">By default is 'true'.</param>
         public void WatchIt(bool isWatched = true)
         {
-            var checkBox = base.manager.ActiveBrowser.Find.ById<HtmlInputCheckBox>("wpWatchthis");
+            var checkBox = base.browser.Find.ById<HtmlInputCheckBox>("wpWatchthis");
             if (checkBox != null)
             {
                 checkBox.Check(isWatched, true);
@@ -135,7 +135,7 @@
         /// <param name="isMinor">By default is 'true'.</param>
         public void MinorEdit(bool isMinor = true)
         {
-            var checkBox = base.manager.ActiveBrowser.Find.ById<HtmlInputCheckBox>("wpMinoredit");
+            var checkBox = base.browser.Find.ById<HtmlInputCheckBox>("wpMinoredit");
             if (checkBox != null)
             {
                 checkBox.Check(isMinor, true);
@@ -167,7 +167,7 @@
             }
 
             this.RefreshDom();
-            var advisorSummary = base.manager.ActiveBrowser.Find.ByContent<HtmlAnchor>("Добави към резюмето");
+            var advisorSummary = base.browser.Find.ByContent<HtmlAnchor>("Добави към резюмето");
             if (advisorSummary != null)
             {
                 advisorSummary.Click();

@@ -30,9 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ArtOfTest.WebAii, Version=2014.3.903.0, Culture=neutral, PublicKeyToken=4fd5f65be123776c, processorArchitecture=MSIL">
+    <Reference Include="ArtOfTest.WebAii, Version=2015.1.319.0, Culture=neutral, PublicKeyToken=4fd5f65be123776c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Wiki.Core\Data\Libs\ArtOfTest.WebAii.dll</HintPath>
+      <HintPath>..\Wiki.Core\Libs\ArtOfTest.WebAii.dll</HintPath>
     </Reference>
     <Reference Include="MinimalJson">
       <HintPath>..\Wiki.Core\Libs\MinimalJson.dll</HintPath>
@@ -55,23 +55,14 @@
     <Compile Include="Wikidata\Statements\DateOfDeath.cs" />
     <Compile Include="Wikidata\Statements\SexOrGender.cs" />
     <Compile Include="Wikidata\Statements\Statement.cs" />
-    <Compile Include="Wikipedia\BioArticles\Article.cs" />
-    <Compile Include="Wikipedia\BioArticles\Reference.cs" />
-    <Compile Include="Wikipedia\BioArticles\TaxoBox\Authority.cs" />
-    <Compile Include="Wikipedia\BioArticles\TaxoBox\Diversity.cs" />
-    <Compile Include="Wikipedia\BioArticles\TaxoBox\Image.cs" />
-    <Compile Include="Wikipedia\BioArticles\TaxoBox\Map.cs" />
-    <Compile Include="Wikipedia\BioArticles\TaxoBox\Statute.cs" />
-    <Compile Include="Wikipedia\BioArticles\TaxoBox\Taxobox.cs" />
-    <Compile Include="Wikipedia\BioArticles\TaxoBox\Taxon2.cs" />
-    <Compile Include="Wikipedia\BioArticles\TaxoBox\Taxonomy.cs" />
-    <Compile Include="Wikipedia\BioArticles\Taxon.cs" />
-    <Compile Include="Enums\Bio.cs" />
+    <Compile Include="Wikipedia\Taxonomy\Article.cs" />
+    <Compile Include="Wikipedia\Taxonomy\Reference.cs" />
+    <Compile Include="Wikipedia\Taxonomy\Tax.cs" />
+    <Compile Include="Wikipedia\Taxonomy\Taxonomy.cs" />
     <Compile Include="Enums\Color.cs" />
     <Compile Include="Enums\Kingdom.cs" />
     <Compile Include="Enums\Lang.cs" />
     <Compile Include="Enums\ReferenceType.cs" />
-    <Compile Include="Enums\Stub.cs" />
     <Compile Include="Wikipedia\Pages\MainPages\WikiMovePage.cs" />
     <Compile Include="Wikipedia\Pages\MainPages\WikiHistoryPage.cs" />
     <Compile Include="Wikipedia\Pages\MainPages\WikiArticlePage.cs" />
@@ -82,9 +73,6 @@
     <Compile Include="Wikipedia\Pages\WikiPage.cs" />
     <Compile Include="Wikipedia\Pages\ResultsPages\WikiResultsPage.cs" />
     <Compile Include="Wikipedia\Pages\ResultsPages\WikiSearchPage.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

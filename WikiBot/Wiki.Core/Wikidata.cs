@@ -180,7 +180,7 @@
         public string GetItemID(string title, List<string> sites = null)
         {
             this.label = string.Empty;
-            
+
             if (sites == null)
             {
                 sites = new List<string>();
@@ -278,12 +278,12 @@
             parameters["format"] = "json";
             parameters["baserevid"] = this.revisionID.ToString();
             parameters["bot"] = true.ToString();
-            if (summary != null) parameters["summary"] = summary;
 
             var body = new Dictionary<string, string>();
             body["id"] = this.itemID;
             body["token"] = this.GetToken();
 
+            if (summary != null) parameters["summary"] = summary;
             if (action == "wbsetclaim") parameters["claim"] = data;
             if (action == "wbeditentity") body["data"] = data;
 

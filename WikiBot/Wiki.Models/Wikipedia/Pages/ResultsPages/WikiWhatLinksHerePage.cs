@@ -20,7 +20,7 @@
         {
             get
             {
-                var links = base.manager.ActiveBrowser.Find.ById<HtmlUnorderedList>("mw-whatlinkshere-list");
+                var links = base.browser.Find.ById<HtmlUnorderedList>("mw-whatlinkshere-list");
 
                 if (links != null)
                 {

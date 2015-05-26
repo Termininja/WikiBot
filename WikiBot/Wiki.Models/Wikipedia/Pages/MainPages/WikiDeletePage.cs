@@ -18,7 +18,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlSelect>("wpDeleteReasonList");
+                return base.browser.Find.ById<HtmlSelect>("wpDeleteReasonList");
             }
         }
 
@@ -26,7 +26,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlInputText>("wpReason");
+                return base.browser.Find.ById<HtmlInputText>("wpReason");
             }
         }
 
@@ -34,7 +34,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlInputCheckBox>("wpWatch");
+                return base.browser.Find.ById<HtmlInputCheckBox>("wpWatch");
             }
         }
 
@@ -42,7 +42,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlInputSubmit>("wpConfirmB");
+                return base.browser.Find.ById<HtmlInputSubmit>("wpConfirmB");
             }
         }
 

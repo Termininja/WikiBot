@@ -1,5 +1,6 @@
 ﻿namespace Wiki.Models.Wikipedia.Pages.MainPages
 {
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
 
     using ArtOfTest.WebAii.Controls.HtmlControls;
@@ -23,7 +24,13 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ById<HtmlDiv>("mw-subcategories").Find.AllByTagName<HtmlAnchor>("a");
+                var subcategories = base.browser.Find.ById<HtmlDiv>("mw-subcategories");
+                if (subcategories != null)
+                {
+                    return subcategories.Find.AllByTagName<HtmlAnchor>("a");
+                }
+
+                return new ReadOnlyCollection<HtmlAnchor>(new List<HtmlAnchor>());
             }
         }
 
@@ -34,9 +41,15 @@
         {
             get
             {
-                var pageList = base.manager.ActiveBrowser.Find.ById<HtmlDiv>("mw-pages").Find.ByAttributes<HtmlDiv>("class=mw-content-ltr");
+                var pages = base.browser.Find.ById<HtmlDiv>("mw-pages");
+                if (pages != null)
+                {
+                    var pageList = pages.Find.ByAttributes<HtmlDiv>("class=mw-content-ltr");
 
-                return pageList.Find.AllByTagName<HtmlAnchor>("a");
+                    return pageList.Find.AllByTagName<HtmlAnchor>("a");
+                }
+
+                return new ReadOnlyCollection<HtmlAnchor>(new List<HtmlAnchor>());
             }
         }
 
@@ -47,7 +60,7 @@
         {
             get
             {
-                return base.manager.ActiveBrowser.Find.ByContent<HtmlAnchor>("следващи 200");
+                return base.browser.Find.ByContent<HtmlAnchor>("следващи 200");
             }
         }
 
