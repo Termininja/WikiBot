@@ -1,0 +1,78 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ assembly name="Libs\HtmlAgilityPack.dll" #>
+<#@ assembly name="Wiki\bin\Debug\Wiki.dll" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="HtmlAgilityPack" #>
+<#@ import namespace="Wiki.Helper" #>
+<#@ output extension=".cs" #><#
+
+
+#>namespace Wiki.Data.Enums
+{
+    using System.ComponentModel;
+
+	/// <summary>
+    /// Wikidata property: https://www.wikidata.org/wiki/Help:Properties
+    /// </summary>
+    public enum Property
+	{
+<#=GetProperties()#>
+	}
+}<#
+
+
+#><#+ private static string GetProperties()
+{
+	var prop1 = GetDict(new Dictionary<int, string>(), "time", "Time");
+    var prop2 = GetDict(prop1, "wikibase-item", "Item");
+    var prop3 = GetDict(prop2, "string", "String");
+    var prop4 = GetDict(prop3, "globe-coordinate", "GlobeCoordinate");
+    var prop5 = GetDict(prop4, "monolingualtext", "MonolingualText");
+    var prop6 = GetDict(prop5, "commonsMedia", "CommonsMediaFile");
+    var prop7 = GetDict(prop6, "wikibase-property", "Property");
+    var prop8 = GetDict(prop7, "url", "Url");
+    var prop9 = GetDict(prop8, "quantity", "Quantity");
+
+    var res = prop9.OrderBy(x => x.Key).Select(x => x.Value).ToList();
+
+	return string.Join("\n\n", res);
+}
+
+private static Dictionary<int, string> GetDict(Dictionary<int, string> dict, string dt, string DT)
+{
+    var doc = new HtmlWeb().Load("https://www.wikidata.org/wiki/Special:ListProperties?limit=5000&datatype=" + dt).DocumentNode;
+    var div = doc.SelectSingleNode("//div[@id='mw-content-text']");
+    var content = div.SelectSingleNode("//div[@class='mw-spcontent']");
+    var ol = content.SelectSingleNode("ol");
+    var children = ol.ChildNodes.Select(x => new
+    {
+        a = int.Parse(x.FirstChild.Attributes["title"].Value.Remove("Property:P")),
+        b = Regex.Replace(x.FirstChild.InnerText, @" ?\(P\d+\)", "").Remove("+").Trim()
+    }).ToList();
+
+    var result = children.Select(x => new
+    {
+        m = x.a,
+        n = "\t\t/// <summary>Wikidata property (P" + x.a + ") of <see cref=\"DataType." + DT + 
+			"\"/></summary>\n\t\t[Type(DataType." + DT + ")]\n\t\t" + FormatTextForProperty(x.b) + " = " + x.a + ","
+    }).ToDictionary(x => x.m, y => y.n);
+
+    dict.ToList().ForEach(x => result.Add(x.Key, x.Value));
+
+    return result;
+}
+
+private static string FormatTextForProperty(string str)
+{
+    var splitted = (str.Replace("(", " ").Replace(")", " ")
+        .Replace("ò", "o").Replace("é", "e").Replace("&amp;", "and").Remove("'", "\""))
+        .Split(new char[] { '–', ' ', '-', '.', ',', '/', ':' }, StringSplitOptions.RemoveEmptyEntries);
+
+    return string.Join("", splitted.Select(x => x.ToUpperFirst()));
+} #>
